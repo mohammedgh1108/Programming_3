@@ -24,17 +24,17 @@ public class main {
         
         //objects read by JOptionPane
         for(int i=0; i<employees.length; i++){
-        Employee e = new Employee();
-        e.setName(JOptionPane.
-        showInputDialog(null, "Enter Employee name",
-        "Employee " + i, JOptionPane.INFORMATION_MESSAGE));
-        e.setDepartment(JOptionPane.
-        showInputDialog(null, "Enter Employee department",
-        "Employee " + i, JOptionPane.INFORMATION_MESSAGE));
-        e.setSalary(Double.parseDouble(JOptionPane.
-        showInputDialog(null, "Enter Employee salary",
-        "Employee " + i, JOptionPane.INFORMATION_MESSAGE)));
-        employees[i] = e;
+            Employee e = new Employee();
+            e.setName(JOptionPane.
+            showInputDialog(null, "Enter Employee name",
+            "Employee " + i, JOptionPane.INFORMATION_MESSAGE));
+            e.setDepartment(JOptionPane.
+            showInputDialog(null, "Enter Employee department",
+            "Employee " + i, JOptionPane.INFORMATION_MESSAGE));
+            e.setSalary(Double.parseDouble(JOptionPane.
+            showInputDialog(null, "Enter Employee salary",
+            "Employee " + i, JOptionPane.INFORMATION_MESSAGE)));
+            employees[i] = e;
         }
         
         //objects read by Scanner
@@ -63,15 +63,18 @@ public class main {
                 }
             }
         }
-        
-        //Show the sorted Employee data using Command Line
-        for (int i = 0; i < employees.length; i++) {
-            System.out.println("Employee Name : "+employees[i].getName()+"\nEmployee Department : "+employees[i].getDepartment()+"\nEmployee Salary : "+employees[i].getSalary()+"\n");
-        }
         //Show the sorted Employee data using JOptionPane
         for( int i = 0;i < employees.length; i++){
-            JOptionPane.showMessageDialog(null, employees[i], "Printing results",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Employee Name : "+employees[i].getName()+
+                    "\nEmployee Department : "+employees[i].getDepartment()+"\nEmployee Salary : "+
+                    employees[i].getSalary()+"\n", "Printing results",JOptionPane.INFORMATION_MESSAGE);
         }
+        //Show the sorted Employee data using Command Line
+        for (int i = 0; i < employees.length; i++) {
+            System.out.println("Employee Name : "+employees[i].getName()+"\nEmployee Department : "+
+                    employees[i].getDepartment()+"\nEmployee Salary : "+employees[i].getSalary()+"\n");
+        }
+        
         //Access the number of objects by the count member.
         System.out.println(Employee.count);
     }

@@ -33,7 +33,11 @@ public class Employee implements Comparable<Employee>{
     public double getSalary() {
         return salary;
     }
-
+    
+    public double getSalaryWithBouns(double bouns) {
+        return salary*bouns;
+    }
+    
     public static int getCount() {
         return count;
     }
