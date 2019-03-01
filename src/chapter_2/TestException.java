@@ -21,6 +21,23 @@ public class TestException {
         }catch(ExceptionA ea){
             ea.printStackTrace();
         }
+        
+        
+        try{
+            
+        }
+        catch(Exception e){
+            if (e instanceof ExceptionA) {
+                System.out.println("Exception of type ExceptionA was caught");
+            }else if(e instanceof ExceptionB){
+                System.out.println("Exception of type ExceptionB was caught");
+            }
+            else if(e instanceof NullPointerException){
+                System.out.println("Exception of type NullPointerException was caught");
+            }else{
+                System.out.println("Exception of type IOException. was caught");
+            }
+        }
     }
 
     public static void  getExceptionB() throws ExceptionB{
