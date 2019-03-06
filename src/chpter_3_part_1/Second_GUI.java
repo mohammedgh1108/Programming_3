@@ -73,6 +73,7 @@ public class Second_GUI extends JFrame{
         gui.setVisible(true);
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setLocationRelativeTo(null);
-        gui.setSize(200,185);
+        gui.setResizable(false);
+        gui.setSize(190,172);
     }
 }
