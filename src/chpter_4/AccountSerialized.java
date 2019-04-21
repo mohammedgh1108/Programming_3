@@ -77,7 +77,7 @@ public class AccountSerialized extends JFrame implements ActionListener{
                 }
             
             try {
-                ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream("d:\\javaFolder\\account.ser"));
+                ObjectOutputStream os= new ObjectOutputStream(new FileOutputStream("./src/chpter_4/account.ser"));
                 for(Account student: accounts)
                     os.writeObject(student);
                 os.close();
@@ -87,7 +87,7 @@ public class AccountSerialized extends JFrame implements ActionListener{
         }else if(ae.getActionCommand()=="read"){
             String result = "";
             try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("d:\\javaFolder\\account.ser"));
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./src/chpter_4/account.ser"));
             while(true)
                 try{
                    Account account = (Account)ois.readObject();
