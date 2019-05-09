@@ -1,0 +1,30 @@
+CREATE DATABASE Car_Insuranse;
+
+CREATE TABLE logs(
+	driver_id int,
+	car_id varchar(50),
+	report  int,
+	damage int,
+	CONSTRAINT primary_1 PRIMARY KEY(driver_id ,car_id,report),
+	FOREIGN KEY (driver_id)  REFERENCES Driver(id),
+	FOREIGN KEY (car_id) REFERENCES Car(license),
+	FOREIGN KEY (report) REFERENCES  Accident(report_number)	
+);
+
+CREATE TABLE Accident(
+	report_number int PRIMARY KEY,
+	adata date,
+	location varchar(20)
+);
+CREATE TABLE Car(
+	license varchar(50) PRIMARY KEY,
+	myear year,
+	model varchar(20)
+);
+CREATE TABLE Driver(
+	id int PRIMARY KEY ,
+	name varchar(40),
+	address varchar(20),
+	dob date,
+	phone int
+);
