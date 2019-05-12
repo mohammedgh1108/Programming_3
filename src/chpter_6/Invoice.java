@@ -14,7 +14,6 @@ public class Invoice {
     private String partDescription;
     private int quantity;
     private double price;
-
     public Invoice(int partNumber, String partDescription, int quantity, double price) {
         this.partNumber = partNumber;
         this.partDescription = partDescription;

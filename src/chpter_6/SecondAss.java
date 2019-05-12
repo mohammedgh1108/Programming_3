@@ -8,7 +8,12 @@ package chpter_6;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -16,10 +21,25 @@ import java.util.stream.Stream;
  * @author WH1108
  */
 public class SecondAss {
-    public static void main(String[] args) throws IOException {
-        Long wordsCount = Files.lines(Paths.get("./src/chpter_6/text.txt"))
-            .flatMap(str->Stream.of(str.split("[ ,.!?\r\n]")))
-            .filter(s->s.length()>0).count();
-        System.out.println(wordsCount);
+    public static void main(String[] args) throws Exception {
+        TreeMap<Character, Integer> hashMap = new TreeMap<Character, Integer>();
+        File file = new File("./src/chpter_6/text.txt");
+        Scanner scanner = new Scanner(file,"utf-8");
+        while (scanner.hasNext()) {
+            char[] chars = scanner.nextLine().toLowerCase().toCharArray();
+            for (Character c : chars) {
+                if(!Character.isLetter(c)){
+                    continue;
+                }
+                else if (hashMap.containsKey(c)) {
+                    hashMap.put(c, hashMap.get(c) + 1);
+                } else {
+                    hashMap.put(c, 1);
+                }
+            }
+        }
+        for (Map.Entry<Character, Integer> entry : hashMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 }

@@ -41,6 +41,7 @@ public class InvoiceLambdas {
         
         PreparedStatement ps = connection.prepareStatement("delete from invoice");
         ps.executeUpdate();
+        
         ps = connection.prepareStatement("insert into invoice values(?,?,?,?)");
         for (int i = 0; i < arrayOfInvoice.length; i++) {
             ps.setInt(1, arrayOfInvoice[i].getPartNumber());
@@ -50,6 +51,7 @@ public class InvoiceLambdas {
             ps.addBatch();
         }
         ps.executeBatch();
+        
         ArrayList<Invoice> invoiceObjects = new ArrayList<>();
         ps = connection.prepareStatement("select * from invoice");
         ResultSet rs = ps.executeQuery();
@@ -57,27 +59,34 @@ public class InvoiceLambdas {
             invoiceObjects.add(new Invoice(rs.getInt("partnumber"), rs.getString("partdescription"),
                     rs.getInt("quantity"), rs.getDouble("price")));
         }
+        
+        
         System.out.println("Sorting Invoice objects by PartDescription\n"); 
         System.out.printf("%-18s %-24s %-10s %10s","Part Number","Part Description","Quantity","Price\n");
-        invoiceObjects.stream().sorted(Comparator.comparing(Invoice::getPartDescription)).forEach(System.out::println);     
+        invoiceObjects.stream().sorted(Comparator.comparing(Invoice::getPartDescription)).forEach(System.out::println);
+        
+        
+        System.out.println("======================================");
         System.out.println("\nSorting Invoice objects by Price\n");
         System.out.printf("%-18s %-24s %-10s %10s","Part Number","Part Description","Quantity","Price\n");
         invoiceObjects.stream().sorted(Comparator.comparing(Invoice::getPrice)).forEach(System.out::println);
-        System.out.println("");
         
-        invoiceObjects.stream()
-            .collect(Collectors.toMap(Invoice::getPartDescription,Invoice::getQuantity))
-            .entrySet()
-            .stream()
-            .sorted(Map.Entry.comparingByValue())
-            .forEach(e -> System.out.println(String.format("Description: %-15s  Quantity: %-4d",e.getKey(),e.getValue())));
-        System.out.println("\n");
         
-//        invoiceObjects.stream()
-//            .collect(Collectors.toMap(Invoice::getPartDescription,Invoice::getQuantity))
-//            .entrySet()
-//            .stream().
-//            .sorted(Map.Entry.comparingByValue())
-//            .forEach(e -> System.out.println(String.format("Description: %-15s  Quantity: %-4d",e.getKey(),e.getValue())));
+        System.out.println("======================================");
+        System.out.println("\nInvoice Maped to PartDescription and Quantity and sorted by Quantity,\n");
+        invoiceObjects.stream().sorted(Comparator.comparing(Invoice::getQuantity))
+                .map(invoice -> String.format("Description: %-15s  Quantity: %-4d", invoice.getPartDescription(),invoice.getQuantity())).forEach(System.out::println);
+        
+        
+        System.out.println("======================================");
+        System.out.println("\nInvoice Maped to PartDescription and Value and sorted by Value,\n");
+        invoiceObjects.stream().sorted(Comparator.comparing(i->i.getQuantity()*i.getPrice()))
+                .map(i->String.format("Description: %-15s  Value: %-4f",i.getPartDescription(),(i.getPrice()*i.getQuantity()))).forEach(s->System.out.println(s));
+        
+        
+        System.out.println("======================================");
+        System.out.println("\nInvoice Maped to PartDescription and Value and sorted by Value in the range $200 to $500.,\n");
+        invoiceObjects.stream().filter(i->((i.getPrice()*i.getQuantity())>200)&&((i.getPrice()*i.getQuantity())<500)).sorted(Comparator.comparing(i->i.getQuantity()*i.getPrice()))
+                .map(i->String.format("Description: %-15s  Value: %-4f",i.getPartDescription(),(i.getPrice()*i.getQuantity()))).forEach(s->System.out.println(s));
     }
 }

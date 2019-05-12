@@ -6,6 +6,7 @@
 package chpter_6;
 
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 
 /**
  *
@@ -16,16 +17,25 @@ public class firstOne {
         firstOperation fPrint = (n) -> System.out.printf("%d ", n);
         fPrint.operation(3);
         
+        UnaryOperator<String> secondOperation = String::toUpperCase;
+        System.out.println(secondOperation.apply("Mohammed"));
+        
+        thirdOperation<String> s = () -> {
+            return "Welcome to lambdas!";
+        };
+
+        UnaryOperator<Double> fourthOperation = Math::sqrt;
+
+        UnaryOperator<Integer> fifthOperation = cube -> cube * 3;
 
     }
-    interface firstOperation<T>{
-        void operation(T s);
+    interface firstOperation{
+        void operation(int s);
     }
     
-    interface Square{ 
-        int calculate(int x); 
+    interface thirdOperation<T> {
+        T applay();
     }
-    interface toUpperCase<T>{
-        String upper(T s);
-    }
+
+
 }
